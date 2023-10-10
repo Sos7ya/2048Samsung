@@ -1,0 +1,27 @@
+{
+  "name": "tv2048",
+  "version": "0.0.2",
+  "description": "��#\u0000 \u00002\u00000\u00004\u00008\u0000B\u0000r\u0000i\u0000c\u0000k\u0000s\u0000\r\u0000 \u0000",
+  "main": "game.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sos7ya/2048Bricks.git"
+  },
+  "author": "Sos7ya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sos7ya/2048Bricks/issues"
+  },
+  "homepage": "https://github.com/Sos7ya/2048Bricks#readme",
+  "devDependencies": {
+    "@babel/core": "^7.22.15",
+    "@babel/preset-env": "^7.22.15",
+    "gulp": "^4.0.2",
+    "gulp-babel": "^8.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-uglify": "^3.0.2"
+  }
+}
