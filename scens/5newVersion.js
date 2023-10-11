@@ -9,7 +9,7 @@ var canMergeDown;
 var canMergeLeft;
 var canMergeRight;
 var canMove = true;
-var game_version = '0.1.9';
+var game_version = '0.1.9s';
 var onMerge = false;
 
 var gameState ={
@@ -26,7 +26,7 @@ var gameId = uid();
 window.onload = function () {
   
   var config = {
-    type: Phaser.CANVAS,
+    type: Phaser.WEBGL,
     width: 1920,
     height: 1080,
     parent: 'phaser-example',
