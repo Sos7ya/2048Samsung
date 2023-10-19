@@ -114,11 +114,21 @@ class GameOver extends Phaser.Scene{
             canMergeDown ;
             canMergeLeft ;
             canMergeRight ;
-
-            startGame.gameSessionId = uid();
-            startGame.allGameSessionId = sessionID;
-            window?.parent.postMessage(startGame, '*');
+            try{
+                startGame.gameSessionId = generateUUID();
+                startGame.allGameSessionId = sessionID;
+                window?.parent.postMessage(startGame, '*');
+            }
             
+            catch(er){
+                var startGameError = {
+                    action: 'startGameError',
+                    allGameSessionId : sessionID,
+                    gameSessionId: gameId,
+                    timeStamp: Date.now()
+                }
+                window?.parent.postMessage(startGameError, '*');
+            }
             this.scene.start('gameScene');
             this.scene.stop();
             
@@ -127,6 +137,7 @@ class GameOver extends Phaser.Scene{
 
     exitGame(){
         if(gameState.isOver){
+
             let closeGameSession = {
                 action: 'closeGameSession',
                 allGameSessionId : sessionID,

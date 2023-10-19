@@ -8,6 +8,31 @@ class Pause extends Phaser.Scene{
     create(){
         gameState.onPause = true;
         gameState.onGame = false;
+
+        try{
+            let gamePause = {
+                action: 'gamePause',
+                allGameSessionId: startGame.allGameSessionId,
+                gameSessionId: startGame.gameSessionId,
+                score: gameState.score,
+                timeStamp : Date.now()
+            }
+    
+            window?.parent.postMessage(gamePause, '*');
+        }
+        catch(er){
+            let gamePauseError = {
+                action: 'gamePauseError',
+                allGameSessionId: startGame.allGameSessionId,
+                gameSessionId: startGame.gameSessionId,
+                score: gameState.score,
+                timeStamp : Date.now()
+            }
+    
+            window?.parent.postMessage(gamePauseError, '*');
+        }
+        
+
         this.pauseBg = this.add.image(game.config.width/2, game.config.height/2, 'menuBg').setOrigin(0.5);
         this.pauseBg.setDisplaySize(game.config.width, game.config.height);
 
@@ -94,6 +119,31 @@ class Pause extends Phaser.Scene{
         if(gameState.onPause){
             gameState.onPause = false;
             gameState.onGame = true;
+
+            try{
+                let gameResume = {
+                    action: 'gameResume',
+                    allGameSessionId: startGame.allGameSessionId,
+                    gameSessionId: startGame.gameSessionId,
+                    score: gameState.score,
+                    timeStamp : Date.now()
+                }
+    
+                window?.parent.postMessage(gameResume, '*');
+            }
+            catch(er){
+                let gameResumeError = {
+                    action: 'gameResumeError',
+                    allGameSessionId: startGame.allGameSessionId,
+                    gameSessionId: startGame.gameSessionId,
+                    score: gameState.score,
+                    timeStamp : Date.now()
+                }
+
+                indow?.parent.postMessage(gameResumeError, '*');
+            }
+            
+
             this.scene.stop('Pause');
             this.scene.resume('gameScene');
         }
