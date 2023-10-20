@@ -9,7 +9,7 @@ var canMergeDown;
 var canMergeLeft;
 var canMergeRight;
 var canMove = true;
-var game_version = '0.2.4s';
+var game_version = '0.2.5s';
 var onMerge = false;
 
 var gameState ={
