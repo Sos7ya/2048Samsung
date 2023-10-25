@@ -6,6 +6,7 @@ class Pause extends Phaser.Scene{
     }
 
     create(){
+        posted = false;
         gameState.onPause = true;
         gameState.onGame = false;
 
@@ -151,13 +152,25 @@ class Pause extends Phaser.Scene{
 
     exitGame(){
         if(gameState.onPause){
-            let closeGameSession = {
-                action: 'closeGameSession',
-                allGameSessionId : sessionID,
-                timeStamp : Date.now()
-            }
+            if(!posted){
+                let closeGameSession = {
+                    action: 'closeGameSession',
+                    allGameSessionId : sessionID,
+                    timeStamp : Date.now()
+                }
     
-            window?.parent.postMessage(closeGameSession, '*');
+                let gameOver = {
+                    action: 'gameOver',
+                    allGameSessionId : sessionID,
+                    gameSessionId : startGame.gameSessionId,
+                    score : gameState.score,
+                    timeStamp : Date.now()
+                }
+        
+                window?.parent.postMessage(gameOver, '*');
+                window?.parent.postMessage(closeGameSession, '*');
+                posted = true;
+            }
         }
     }
 

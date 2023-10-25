@@ -9,8 +9,10 @@ var canMergeDown;
 var canMergeLeft;
 var canMergeRight;
 var canMove = true;
-var game_version = '0.2.5s';
+var game_version = '0.2.6s';
 var onMerge = false;
+
+let posted = false;
 
 var gameState ={
   onMenu: false,
@@ -37,7 +39,6 @@ window.onload = function () {
     },
     audio:{
       disableWebAudio: true,
-      noAudio: false
     }
   }
 

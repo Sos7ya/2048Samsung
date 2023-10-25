@@ -20,9 +20,8 @@ class MainMenu extends Phaser.Scene{
         });
     }
 
-    
-
     create(){
+        posted = false;
         gameState.isMenu = true;
         this.mainBg = this.add.image(game.config.width/2, game.config.height/2, 'mainBg').setOrigin(0.5);
         this.mainBg.setDisplaySize(game.config.width, game.config.height);
@@ -36,17 +35,6 @@ class MainMenu extends Phaser.Scene{
                 this.exitGame();
             }
         })
-        
-        let canvas = document.getElementsByTagName('canvas')[0];
-        let posX = [];
-        let posY = [];
-        
-        for(let i = this.startBtn.x - (this.startBtn.width/2); i < this.startBtn.x + (this.startBtn.width/2); i++){
-            posX.push(i);
-        }
-        for(let n = this.startBtn.y - (this.startBtn.height/2); n < this.startBtn.y + (this.startBtn.height/2); n++){
-            posY.push(n);
-        }
 
         this.versionText = this.add.text(game.config.width - 60, game.config.height - 40, `${game_version}`, { fontFamily:'Nunito-black', fontStyle:'bold', fontSize: '30px', fill: '#fff' }).setOrigin(0.5);
         this.ageInfo = this.add.image(game.config.width - 150, 100, 'ageInfo');
@@ -68,34 +56,6 @@ class MainMenu extends Phaser.Scene{
                 fontStyle: 'normal',
                 color: '#2A185BB2',
             }).setOrigin(0.5)
-        }
-    }
-
-    checkPosX(e, posX){
-        
-        let set = false;
-        posX.forEach(pos => {
-            if(pos === e.offsetX){
-                set = true;
-            }
-        });
-        return set;
-    }
-
-    checkPosY(e, posY){
-        let set = false;
-        posY.forEach(pos => {
-            if(Math.floor(pos) === e.offsetY){
-                set = true;
-            }
-        });
-        return set;
-    }
-
-    handleClick(checkPosX, checkPosY){
-        if(checkPosX && checkPosY){
-            this.scene.stop();
-            this.scene.start('gameScene');
         }
     }
 
@@ -143,13 +103,16 @@ class MainMenu extends Phaser.Scene{
 
     exitGame(){
         if(gameState.isMenu){
-            let closeGameSession = {
-                action: 'closeGameSession',
-                allGameSessionId : sessionID,
-                timeStamp : Date.now()
+            if(!posted){
+                let closeGameSession = {
+                    action: 'closeGameSession',
+                    allGameSessionId : sessionID,
+                    timeStamp : Date.now()
+                }
+        
+                window?.parent.postMessage(closeGameSession, '*');
+                posted = true;
             }
-    
-            window?.parent.postMessage(closeGameSession, '*');
         }
     }
 

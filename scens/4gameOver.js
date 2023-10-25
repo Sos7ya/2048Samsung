@@ -6,7 +6,7 @@ class GameOver extends Phaser.Scene{
     }
 
     create(){
-
+        posted = false;
         let gameOver = {
             action: 'gameOver',
             allGameSessionId : sessionID,
@@ -137,14 +137,16 @@ class GameOver extends Phaser.Scene{
 
     exitGame(){
         if(gameState.isOver){
-
-            let closeGameSession = {
-                action: 'closeGameSession',
-                allGameSessionId : sessionID,
-                timeStamp : Date.now()
+            if(!posted){
+                let closeGameSession = {
+                    action: 'closeGameSession',
+                    allGameSessionId : sessionID,
+                    timeStamp : Date.now()
+                }
+        
+                window?.parent.postMessage(closeGameSession, '*');
+                posted = true;
             }
-    
-            window?.parent.postMessage(closeGameSession, '*');
         }
     }
 
