@@ -20,18 +20,7 @@ class Pause extends Phaser.Scene{
             }
     
             window?.parent.postMessage(gamePause, '*');
-        }
-        catch(er){
-            let gamePauseError = {
-                action: 'gamePauseError',
-                allGameSessionId: startGame.allGameSessionId,
-                gameSessionId: startGame.gameSessionId,
-                score: gameState.score,
-                timeStamp : Date.now()
-            }
-    
-            window?.parent.postMessage(gamePauseError, '*');
-        }
+        
         
 
         this.pauseBg = this.add.image(game.config.width/2, game.config.height/2, 'menuBg').setOrigin(0.5);
@@ -59,6 +48,18 @@ class Pause extends Phaser.Scene{
             color: '#2A185BB2',
         }).setOrigin(0.5);
         this.loadScore();
+    }
+    catch(er){
+        let gamePauseError = {
+            action: 'gamePauseError',
+            allGameSessionId: startGame.allGameSessionId,
+            gameSessionId: startGame.gameSessionId,
+            score: gameState.score,
+            timeStamp : Date.now()
+        }
+
+        window?.parent.postMessage(gamePauseError, '*');
+    }
     }
 
     loadScore(){
@@ -131,6 +132,8 @@ class Pause extends Phaser.Scene{
                 }
     
                 window?.parent.postMessage(gameResume, '*');
+                this.scene.stop('Pause');
+                this.scene.resume('gameScene');
             }
             catch(er){
                 let gameResumeError = {
@@ -143,10 +146,6 @@ class Pause extends Phaser.Scene{
 
                 indow?.parent.postMessage(gameResumeError, '*');
             }
-            
-
-            this.scene.stop('Pause');
-            this.scene.resume('gameScene');
         }
     }
 

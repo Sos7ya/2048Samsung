@@ -85,6 +85,9 @@ class MainMenu extends Phaser.Scene{
                 startGame.gameSessionId = generateUUID();
                 startGame.allGameSessionId = sessionID;
                 window?.parent.postMessage(startGame, '*');
+                
+                this.scene.stop('MainMenu');
+                this.scene.start('gameScene');
             }
             catch(er){
                 var startGameError = {
@@ -95,9 +98,6 @@ class MainMenu extends Phaser.Scene{
                 }
                 window?.parent.postMessage(startGameError, '*');
             }
-
-            this.scene.stop('MainMenu');
-            this.scene.start('gameScene');
         }
     }
 
