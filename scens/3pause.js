@@ -19,7 +19,7 @@ class Pause extends Phaser.Scene{
                 timeStamp : Date.now()
             }
     
-            window?.parent.postMessage(gamePause, '*');
+            window?.parent.postMessage(gamePause, parentOrigin);
         
         
 
@@ -58,7 +58,7 @@ class Pause extends Phaser.Scene{
             timeStamp : Date.now()
         }
 
-        window?.parent.postMessage(gamePauseError, '*');
+        window?.parent.postMessage(gamePauseError, parentOrigin);
     }
     }
 
@@ -131,7 +131,7 @@ class Pause extends Phaser.Scene{
                     timeStamp : Date.now()
                 }
     
-                window?.parent.postMessage(gameResume, '*');
+                window?.parent.postMessage(gameResume, parentOrigin);
                 this.scene.stop('Pause');
                 this.scene.resume('gameScene');
             }
@@ -144,7 +144,7 @@ class Pause extends Phaser.Scene{
                     timeStamp : Date.now()
                 }
 
-                indow?.parent.postMessage(gameResumeError, '*');
+                indow?.parent.postMessage(gameResumeError, parentOrigin);
             }
         }
     }
@@ -166,8 +166,8 @@ class Pause extends Phaser.Scene{
                     timeStamp : Date.now()
                 }
         
-                window?.parent.postMessage(gameOver, '*');
-                window?.parent.postMessage(closeGameSession, '*');
+                window?.parent.postMessage(gameOver, parentOrigin);
+                window?.parent.postMessage(closeGameSession, parentOrigin);
                 posted = true;
             }
         }

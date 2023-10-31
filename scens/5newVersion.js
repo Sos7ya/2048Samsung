@@ -9,9 +9,9 @@ var canMergeDown;
 var canMergeLeft;
 var canMergeRight;
 var canMove = true;
-var game_version = '0.2.6s';
+var game_version = '0.2.7s';
 var onMerge = false;
-
+var parentOrigin;
 let posted = false;
 
 var gameState ={
@@ -42,6 +42,14 @@ window.onload = function () {
     }
   }
 
+  if(document.referrer){
+    parentOrigin = document.referrer
+    console.log(parentOrigin);
+  }
+  else{
+    parentOrigin = '*';
+  }
+
   sessionID = generateUUID();
   try{
     var startGameSession = {
@@ -49,7 +57,7 @@ window.onload = function () {
       allGameSessionId: sessionID,
       timeStamp: Date.now()
     }
-    window?.parent.postMessage(startGameSession, '*');
+    window?.parent.postMessage(startGameSession, parentOrigin);
   }
   
   catch(er){
@@ -58,7 +66,7 @@ window.onload = function () {
       allGameSessionId: sessionID,
       timeStamp: Date.now()
     }
-    window?.parent.postMessage(startGameSessionError, '*');
+    window?.parent.postMessage(startGameSessionError, parentOrigin);
   }
   game = new Phaser.Game(config)
 }
