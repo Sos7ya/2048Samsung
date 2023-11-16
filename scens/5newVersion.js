@@ -38,6 +38,7 @@ window.onload = function () {
       mode: Phaser.Scale.FIT
     },
     audio:{
+      noAudio: true,
       disableWebAudio: true,
     }
   }
